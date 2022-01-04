@@ -1,15 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Home :title="title"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Home from './components/Home.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      title: "Dota 2 Heroes"
+    }
+  },
   components: {
-    HelloWorld
+    Home
   }
 }
 </script>
