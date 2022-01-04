@@ -1,9 +1,8 @@
 <template>
-  <div >
-    <div v-for="hero in this.dotaHeroes" :key="hero.id"> 
-      <HeroCard :heroName="hero.localized_name" :heroAttr="hero.primary_attr" />
+  <div class="home_grid">
+    <div v-for="hero in this.dotaHeroes" :key="hero.id">
+      <HeroCard :heroName="hero.localized_name" :heroAttr="hero.primary_attr" :heroImg="hero.img"  />
     </div>
-      
   </div>
 </template>
 
@@ -12,18 +11,19 @@ import HeroCard from './HeroCard.vue'
 export default {
   data () {
     return  {
-      dotaHeroes: Array
+      dotaHeroes: Array,
     }
   },
+
   methods: {
     getHeroes() {
-      const fetchHeroes = fetch('https://api.opendota.com/api/heroes')
-      fetchHeroes.then(response => {
-        return response.json()
+      const fetchHeroesStats = fetch('https://api.opendota.com/api/heroStats')
+      fetchHeroesStats.then(response => {
+        return this.heroStats = response.json()
       })
       .then(data => {
         this.dotaHeroes = data
-    });
+      });
     }
   },
   components: {
@@ -36,6 +36,11 @@ export default {
 
 </script>
 
-<style>
-
+<style scoped>
+  .home_grid {
+    display: grid;
+    grid-auto-rows: 20rem;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 33fr));
+    gap: 1rem;
+  }
 </style>
