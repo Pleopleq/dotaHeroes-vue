@@ -41,6 +41,6 @@ export default {
     display: grid;
     grid-auto-rows: 20rem;
     grid-template-columns: repeat(auto-fill, minmax(17rem, 33fr));
-    gap: 1rem;
+    gap: 2rem;
   }
 </style>
