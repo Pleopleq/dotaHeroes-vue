@@ -1,25 +1,14 @@
-
 <template>
   <transition name="modal-fade">
     <div class="modal-backdrop" @click="handleHeroModal">
-      <div class="modal"
-        role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
-      >
-        <header class="modal-header" id="modalTitle">
-          <button
-            type="button"
-            class="btn-close"
-            @click="handleModalClose"
-            aria-label="Close modal"
-          >X</button>
+      <div class="modal">
+        <header class="modal-header">
+          <h1>{{ title }} </h1>
+          <button class="btn-close" @click="handleModalClose">X</button>
         </header>
-        <section class="modal-body" id="modalDescription">
-          <slot name="body">
-            This is the default body!
-          </slot>
-        </section>
+        <div class="modal_body">
+          <img :src="body.heroImg" alt="" srcset="">
+        </div>
       </div>
     </div>
   </transition>
@@ -31,6 +20,8 @@
     props: {
         isModalClosed: Boolean,
         handleModalClose: Function,
+        title: String, 
+        body: Object,
     },
   };
 </script>
@@ -50,33 +41,26 @@
 
   .modal {
     background: #FFFFFF;
+    bottom: 2rem;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    width: 460px;
+    max-width: 460px;
   }
 
-  .modal-header,
-  .modal-footer {
-    padding: 15px;
-    display: flex;
-  }
 
   .modal-header {
     position: relative;
+    display: flex;
+    justify-content: center;
     border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
-    justify-content: space-between;
+    padding: 2rem 2rem 0 2rem;
   }
 
-  .modal-footer {
-    border-top: 1px solid #eeeeee;
-    flex-direction: column;
-  }
-
-  .modal-body {
-    position: relative;
-    padding: 20px 10px;
+  .modal_body {
+    padding: 1.2rem;
   }
 
   .btn-close {
@@ -89,15 +73,8 @@
     margin-left: 1rem;
     cursor: pointer;
     font-weight: bold;
-    color: #4AAE9B;
+    color: #d61515;
     background: transparent;
-  }
-
-  .btn-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
   }
 
   .modal-fade-enter,

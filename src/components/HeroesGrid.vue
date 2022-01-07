@@ -1,7 +1,12 @@
 <template>
   <div class="home_grid">
     <div v-for="hero in this.dotaHeroes" :key="hero.id">
-      <HeroCard :heroName="hero.localized_name" :heroAttr="hero.primary_attr" :heroImg="hero.img"  />
+      <HeroCard 
+      :heroName="hero.localized_name"
+      :heroAttr="hero.primary_attr"
+      :heroImg="hero.img"
+      :heroRoles="hero.roles"
+      />
     </div>
   </div>
 </template>

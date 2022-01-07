@@ -4,7 +4,14 @@
     <img :src="heroImgLink" alt="">
     <p>Primary Attribute</p> <img style="width: 32px" :src="attributeIcon" :alt="heroAttrColor">
   </div>
-  <div v-if="isModalClosed" ><Modal :isModalClosed="isModalClosed" :handleModalClose="handleHeroModal" /></div>
+  <div v-if="isModalClosed" >
+    <Modal 
+    :isModalClosed="isModalClosed" 
+    :handleModalClose="handleHeroModal"
+    :title="heroName"
+    :body="heroData"
+    />
+</div>
 </template>
 
 <script>
@@ -21,10 +28,16 @@ export default {
         heroName: String,
         heroAttr: String,
         heroImg: String,
+        heroRoles: Array
     },
     data() {
         return  {
             isModalClosed: false,
+            heroData: {
+                heroAttr: this.heroAttr,
+                heroImg: `https://api.opendota.com${this.heroImg}`,
+                heroRoles: this.heroRoles
+            },
             agiIcon,
             strIcon,
             intIcon
