@@ -9,13 +9,17 @@
         <div class="modal_body">
           <img :src="body.heroImg" alt="" srcset="">
         </div>
+        <HeroRoles :roles="body.heroRoles" />
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import HeroRoles from './HeroRoles.vue'
+
   export default {
+  components: { HeroRoles },
     name: 'Modal',
     props: {
         isModalClosed: Boolean,
