@@ -7,7 +7,7 @@
       :label="'Hero Search:'"
       />
       <button>Search</button>
-      <HeroesGrid/>
+      <HeroesGrid :dotaHeroes="dotaHeroes"/>
   </div>
 </template>
 
@@ -18,11 +18,26 @@ export default {
   components: { HeroesGrid, CustomInput },
   data() {
       return {
-          heroName: ''
+          heroName: '',
+          dotaHeroes: Array,
       }
   },
   props: {
       title: String
+  },
+    methods: {
+    getHeroes() {
+      const fetchHeroesStats = fetch('https://api.opendota.com/api/heroStats')
+      fetchHeroesStats.then(response => {
+        return this.heroStats = response.json()
+      })
+      .then(data => {
+        this.dotaHeroes = data
+      });
+    }
+  },
+  created() {
+    this.getHeroes()
   }
 }
 </script>
