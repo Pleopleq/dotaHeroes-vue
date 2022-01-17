@@ -5,6 +5,7 @@
         type="text"
         :value="modelValue"
         :placeholder="placeholder"
+        @change="onChange"
         @input="(e) => $emit('update:modelValue', e.target.value)"
       >
     </div>
@@ -15,7 +16,8 @@ export default {
     props: {
         label: String,
         placeholder: String,
-        modelValue: String
+        modelValue: String,
+        onChange: Function
     }
 }
 </script>

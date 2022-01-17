@@ -5,9 +5,11 @@
       v-model="heroName"
       :placeholder="'Hero name to search...'"
       :label="'Hero Search:'"
+      @keypress="onChangeFilter"
       />
-      <button>Search</button>
-      <HeroesGrid :dotaHeroes="dotaHeroes"/>
+      <HeroesGrid 
+      :dotaHeroes="filteredHeroes"
+      />
   </div>
 </template>
 
@@ -20,12 +22,13 @@ export default {
       return {
           heroName: '',
           dotaHeroes: Array,
+          filteredHeroes: Array
       }
   },
   props: {
       title: String
   },
-    methods: {
+  methods: {
     getHeroes() {
       const fetchHeroesStats = fetch('https://api.opendota.com/api/heroStats')
       fetchHeroesStats.then(response => {
@@ -33,7 +36,13 @@ export default {
       })
       .then(data => {
         this.dotaHeroes = data
+        this.filteredHeroes = data
       });
+    },
+    onChangeFilter() {
+      this.filteredHeroes = this.dotaHeroes.filter(item => {
+         return item.localized_name.toLowerCase().includes(this.heroName) 
+      })
     }
   },
   created() {
