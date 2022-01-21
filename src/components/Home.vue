@@ -37,14 +37,17 @@ export default {
         });
     },
     onHeroSearch(heroName) {
-      this.filteredHeroes = this.dotaHeroes.filter((item) => {
+      this.filteredHeroes = this.filteredHeroes.filter((item) => {
         return item.localized_name.toLowerCase().includes(heroName);
       });
     },
     onAttrsFilter(attributes) {
-      this.filteredHeroes = this.dotaHeroes.filter((item) => {
-        return item.primary_attr.toLowerCase().includes(attributes);
-      });
+      if (attributes.length === 0) {
+        return this.filteredHeroes = this.dotaHeroes
+      }
+        this.filteredHeroes = this.dotaHeroes.filter((item) => {
+          return attributes.includes(item.primary_attr)
+        });
     },
   },
   created() {
