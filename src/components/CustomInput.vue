@@ -2,22 +2,30 @@
     <div>
       <label for="name">{{label}}</label>
       <input 
-        type="text"
-        :value="modelValue"
+        v-model="modelValue"
+        :type="type"
         :placeholder="placeholder"
-        @change="onChange"
-        @input="(e) => $emit('update:modelValue', e.target.value)"
+        @input="emitValue"
       >
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+      return {
+        modelValue: '',
+      }
+    },
     props: {
         label: String,
         placeholder: String,
-        modelValue: String,
-        onChange: Function
+        type: String,
+    },
+    methods: {
+      emitValue() {
+        this.$emit('custom-input-event', this.modelValue)
+      }
     }
 }
 </script>

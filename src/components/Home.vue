@@ -1,56 +1,56 @@
 <template>
   <div>
-      <h1>{{ title }}</h1>
-      <CustomInput
-      v-model="heroName"
-      :placeholder="'Hero name to search...'"
-      :label="'Hero Search:'"
-      @keypress="onChangeFilter"
-      />
-      <HeroesGrid 
-      :dotaHeroes="filteredHeroes"
-      />
+    <h1>{{ title }}</h1>
+    <the-hero-filter
+      @hero-search="onHeroSearch"
+      @hero-attrs="onAttrsFilter"
+    ></the-hero-filter>
+    <HeroesGrid :dotaHeroes="filteredHeroes" />
   </div>
 </template>
 
 <script>
-import HeroesGrid from './HeroesGrid.vue'
-import CustomInput from './CustomInput.vue'
+import HeroesGrid from "./HeroesGrid.vue";
+import TheHeroFilter from "./TheHeroFilter.vue";
 export default {
-  components: { HeroesGrid, CustomInput },
+  components: { HeroesGrid, TheHeroFilter },
   data() {
-      return {
-          heroName: '',
-          dotaHeroes: Array,
-          filteredHeroes: Array
-      }
+    return {
+      inputValue: "",
+      dotaHeroes: Array,
+      filteredHeroes: Array,
+    };
   },
   props: {
-      title: String
+    title: String,
   },
   methods: {
     getHeroes() {
-      const fetchHeroesStats = fetch('https://api.opendota.com/api/heroStats')
-      fetchHeroesStats.then(response => {
-        return this.heroStats = response.json()
-      })
-      .then(data => {
-        this.dotaHeroes = data
-        this.filteredHeroes = data
+      const fetchHeroesStats = fetch("https://api.opendota.com/api/heroStats");
+      fetchHeroesStats
+        .then((response) => {
+          return (this.heroStats = response.json());
+        })
+        .then((data) => {
+          this.dotaHeroes = data;
+          this.filteredHeroes = data;
+        });
+    },
+    onHeroSearch(heroName) {
+      this.filteredHeroes = this.dotaHeroes.filter((item) => {
+        return item.localized_name.toLowerCase().includes(heroName);
       });
     },
-    onChangeFilter() {
-      this.filteredHeroes = this.dotaHeroes.filter(item => {
-         return item.localized_name.toLowerCase().includes(this.heroName) 
-      })
-    }
+    onAttrsFilter(attributes) {
+      this.filteredHeroes = this.dotaHeroes.filter((item) => {
+        return item.primary_attr.toLowerCase().includes(attributes);
+      });
+    },
   },
   created() {
-    this.getHeroes()
-  }
-}
+    this.getHeroes();
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

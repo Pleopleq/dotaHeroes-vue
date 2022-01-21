@@ -1,21 +1,21 @@
 <template>
-  <Home :title="title"/>
+  <Home :title="title" />
 </template>
 
 <script>
-import Home from './components/Home.vue'
+import Home from "./components/Home.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      title: "Dota 2 Heroes"
-    }
+      title: "Dota 2 Heroes",
+    };
   },
   components: {
-    Home
-  }
-}
+    Home,
+  },
+};
 </script>
 
 <style>
